@@ -1,0 +1,280 @@
+@keyframes
+
+ - @keyframes 쿼리는 CSS에서 애니메이션을 작성하기 위해 사용하는 쿼리로 from 부터 to까지 혹은 0% 부터 100%까지 애니메이션의 한 사이클에 대한 내용을 담는다
+ - 작성예시
+   - @keyframes [애니메이션 이름] {
+	from {
+	}
+	to {
+	}
+        }
+
+
+
+animation-delay
+
+ - animation-delay 속성은 애니메이션의 최초 사이클이 시작되기 전 지연시킬 시간을 지정한다. 사이클 간의 시간에는 영향을 미치지 않는다
+ - 값
+   - 시간 값
+
+
+
+animation-duration
+
+ - animation-duration 속성은 한 사이클을 완성하는데 걸리는 시간을 지정하기 위한 속성이다
+ - 값
+   - 시간 값
+   
+
+
+
+
+animation-iteration
+
+ - animation-iteration
+
+
+
+animation-name
+
+ - animation-name 속성은 @keyframes쿼리에서 작성한 애니메이션 이름을 값으로 사용하여 선택자에 의해 선택된 요소에 애니메이션을 적용하기 위한 속성이다
+ - 값
+   - none : [기본값]애니메이션 없음
+   - [애니메이션 이름]  
+
+
+animation-iteration-count
+
+ - animation-iteration-count 속성은 애니메이션 반복 횟수를 지정하기 위해 사용한다
+ - 자연수 : 기본값은 1이다
+  - infinite : 무한히 반복한다. 
+
+
+
+animation-play-state
+
+ - animation-play-state 속성은  애니메이션 재생 상태를 지정하기 위한 속성이다.
+ - 값 
+   - running : [기본값]재생 중
+   - paused : 일시 정지
+
+
+
+animation-timing-function
+
+ - animation-timing-function 속성은  애니메이션이 적용되는데 있어 시간의 흐름에 따른 사이클 완료율을 계산하는 함수를 지정하기 위한 속성이다.
+ - 값
+   - ease : [기본값]
+   - ease-in
+   - ease-in-out 
+   - ease-out 
+   - linear  
+   - 사용자 정의 베이저 곡선 함수( cubic-beizer(...) ) : https://matthewlein.com/tools/ceaser
+
+
+letter-spacing
+
+ - letter-spacing 속성은 자간 거리를 지정하기 위한 속성이다
+ - 값
+   - normal : [기본값] 운영체제 및 브라우저에서 지정하는 기본값 사용
+   - 크기 값 
+
+line-height
+
+ - line-height 속성은 한 줄의 높이를 지정하기 위한 속성이다
+ - 값
+   - normal : [기본값] 운영체제 및 브라우저에서 지정하는 기본값 사용
+   - 크기 값 : 이 값이 비율일때 해당 요소가 가지고 있는 font-size에 대한 비율로 작동한다.
+
+
+
+text-align
+
+ - text-align 속성은 텍스트를 정렬하기 위한 속성이다. 
+  - 값
+   - start  혹은 left : [기본값]왼쪽 정렬
+   - end  혹은 right : 오른쪽 정렬
+   - center : 가운데 정렬
+   - justify : 양쪽 정렬
+
+
+text-decoration
+
+ - text-decoration 속성은 텍스트 장식을 위한 속성이다.
+ - 형태
+   - [선 종류...] [색상 값]? [스타일]?      *  [   ]? -> 생략 가능한 것
+   - 선 종류 : 선 종류는 공백으로 구분하여 여러개를 사용할 수 있고 그 종류는 아래와 같다.
+    - none : 없음
+    - underline : 밑 줄
+    - overline : 윗 줄
+    - line-through : 취소선
+   - 색상 값 : 색상 값은 선의 색상을 지정하며 생략 가능하고 생략시 텍스트의 색상과 동일하게 지정된다. 
+   - 스타일 : 스타일은 선의 스타일을 지정하며 생략 가능하며 그 종류는 아래와 같다
+    - soild : [기본값]실선
+    - double : 이중 실선
+    - dotted : 원형 실선
+    - dashed : 일반 실선
+    - wavy : 물결표
+
+
+
+text-overflow
+
+ - text-overflow 속성은 텍스트가 요소를 벗어난 경우에 대한 설정을 위한 속성이다.
+ - 값
+   - clip : 벗어난 텍스트를 잘라낸다
+   - ellipsis : 벗어난 텍스트를 잘라내고 특정텍스트(...) 끝에 표시한다
+    - overflow 및 white-space 속성과 함께 사용하여야 효과가 있다.
+
+
+
+text-shadow
+
+ - text-shadow 속성은 텍스트에 그림자를 적용하기위한 속성이다
+  - 형식
+   - [오프셋 x] [오프셋 y] [흐림 반경] [색상]
+    - 오프셋 x : 그림자를 가로 방향으로 얼마나 이동시킬지에 대한 크기 값이다.
+    - 오프셋 y : 그림자를 세로 방향으로 얼마나 이동시킬지에 대한 크기 값이다.
+    - 흐림 반경 : 그림자를 얼마나 흐리게 할지에 대한 크기 값이다
+    - 색상 : 그림자의 색상 값이다.
+
+
+
+text-transform
+  
+ - text-transform 속성은 텍스트대소문자를 변형하기 위해 위한 속성이다
+ - 값
+   - none : 변형하지 않음
+   - capitalize : 첫자와 공백 및 특수문자 뒤의 첫 라틴 문자를 대문자화 해준다. 단, 단어 중간에 있는 대문자를 소문자화하지는 않는다.
+   - uppercase : 모든 라틴 문자를 대문자화한다 
+   - lowercase : 모든 라틴 문자를 소문자화한다
+ 
+
+white-space
+
+ - white-space 속성은 텍스트의 공백 문자 처리 및 줄 바꿈 관련 설정을 위한 속성이다.
+ - 값
+  - normal : [기본값]연속된 공백 문자를 하나로 합치고 개행자도 공백으로 간주한다. 줄이 너무 길어 요소를 벗어날 경우 다음줄을 바꾼다.(자주 사용)
+  - nowrap : 연속된 공백 문자를 하나로 합치지만 자동으로 줄을 바꾸지 않는다. (자주 사용)
+  - pre : 연속된 공백을 합치지 않고 개행자도 인정한다.
+  - pre-wrap : 
+  - pre-line : 
+  - break-spaces : 
+
+
+
+word-spacing
+
+ - word-spacing 속성은 단어간, 태그간 거리를 지정하기 위한 속성이다
+  - 값
+   - normal : [기본값] 운영체제 및 브라우저에서 지정하는 기본값 사용
+   - 크기 값 
+
+
+
+
+cursor
+
+ - cursor 속성은 마우스 포인터의 모양을 지정하기 위한 속성이다.
+ - 값
+    
+     값    모양    설명
+    auto             [기본값]브라우저가 상황에 맞게 알아서 판단한다.
+    none            마우스 포인터 없음. 권장하지 않음
+    default          일반 마우스 포인터 모양
+    pointer          일반 마우스 포인터 모양
+    progress          일반 마우스 포인터 모양
+    wait              일반 마우스 포인터 모양
+    text               일반 마우스 포인터 모양
+    not-allowed          일반 마우스 포인터 모양
+    zoom-in          일반 마우스 포인터 모양
+    zoom-out          일반 마우스 포인터 모양
+
+
+overflow
+
+ - overflow 속성은 속성이 적용되는 요소를 벗어나는 내용에 대한 설정을 위한 속성이다
+ - 값
+   - visiable : [기본값]별도의 조치 없이 보이게 한다 
+   - auto : 필요한 경우 스크롤바를 적용한다
+   - hidden : 벗어나는 내용을 보이지 않게 한다
+   - scroll : 항상 스크롤바를 적용한다.
+  - 형태
+   - [값] : 가로 축 세로 축 모두 값1을 적용한다
+   - [값1 값2] : 가로 축에 값1을 세로축에 값2를 적용한다.
+
+
+overflow-x
+
+ - overflow-x속성은 속성이 적용되는 요소를 가로 축으로 벗어나는 내용에 대한 설정을 위한 속성이다
+ - 값
+   - visiable : [기본값]별도의 조치 없이 보이게 한다 
+   - auto : 필요한 경우 스크롤바를 적용한다
+   - hidden : 벗어나는 내용을 보이지 않게 한다
+   - scroll : 항상 스크롤바를 적용한다.
+
+
+
+
+overflow-y
+
+ - overflow-y 속성은 속성이 적용되는 요소를 세로 축으로 벗어나는 내용에 대한 설정을 위한 속성이다
+ - 값
+   - visiable : [기본값]별도의 조치 없이 보이게 한다 
+   - auto : 필요한 경우 스크롤바를 적용한다
+   - hidden : 벗어나는 내용을 보이지 않게 한다
+   - scroll : 항상 스크롤바를 적용한다.
+
+
+user-select
+
+ - user-select 속성은 사용자의 텍스트의 선택에 대한 설정을 위한 속성이다.
+ - 값
+  - auto : [기본값]브라우저가 상황에 따라 알아서 판단한다.  
+  - all : 요소의 내용이 한 번에 선택 됨
+  - contain : 선택위 범위가 요소를 벗어날 수 없음. 단, 일부 입력 태그에만 적용할 수 있음
+  - none : 요소의 내용을 선택할 수 없음  
+  - text : 요소의 내용을 선택할 수 있음 
+
+
+
+pointer-events
+
+ - pointer-events 속성은 마우스  포인터와 요소간의 상호작용에 관한 설정을 위한 속성이다.
+ - 값 
+  - auto : [기본값]상호작용 가능
+  - none : 상호작용 불가능
+
+z-index
+
+ - z-index 속성은 Z축으로 배치순서를 설정하기 위한 속성이다.
+ - position 속성 값이 static 인 요소는 해당 속성을 무시한다
+ - 값 
+   - 정수 : 기본값은 0 이고 값이 클수록 위로(사용자에게 가까이) 배치된다.
+
+
+<중요!!>
+- height , max-height, max-width, min-height, min-width, width
+- background 어쩌고
+- border  border-radious 어쩌고
+- bottom, left,  position,  right, top
+- color
+- cursor (auto, pointer)
+- font-family, font-size, font-weight
+- tex-align, text-decoration(underline 만), white-space(normal, nowrap 만)
+- margin, padding
+- overflow
+- pointer-events
+- transform (translate)
+- transition 어쩌고
+- user-select
+- z-index 
+
+  
+
+
+
+
+
+
+
