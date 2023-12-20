@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>치지직 CHZZK</title>
+    <link href="./resources/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --header-height: 3.75rem;
+            --aside-width: 4.125rem;
+        }
+
+        body {
+            background-color: #151618;
+            color: #ffffff;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        #header {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            box-sizing: border-box;
+            padding: 0.625rem 0.8125rem;
+            position: fixed;
+            z-index: 2;
+
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+
+        #header > .aside-toggle {
+            border-radius: 0.425rem;
+            cursor: pointer;
+            position: relative;
+
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        #header > .aside-toggle:hover {
+            background-color: #2d2e30;
+        }
+
+        #header > .aside-toggle > .tip {
+            top: 100%;
+            left: 0;
+            background-color: #2d2e30;
+            border-radius: 0.375rem;
+            display: none;
+            font-size: 0.85rem;
+            font-weight: 200;
+            line-height: 100%;
+            padding: 0.35rem 0.5rem;
+            pointer-events: none;
+            position: absolute;
+            transform: translateY(0.125rem);
+            white-space: nowrap;
+        }
+
+        #header > .aside-toggle:hover > .tip {
+            display: block;
+        }
+
+        #header > .logo-wrapper {
+            line-height: 0;
+            margin-left: 0.3425rem;
+        }
+
+        #header > .spring {
+            flex-grow: 1;
+        }
+
+        #header > .login-button {
+            border: 0.0625rem solid #444546;
+            border-radius: 0.5rem;
+            color: inherit;
+            font-size: 0.825rem;
+            font-weight: 200;
+            letter-spacing: 0.0625rem;
+            line-height: 100%;
+            margin-right: 0.3rem;
+            padding: 0.45rem 0.625rem;
+            text-decoration: none;
+        }
+
+        #header > .login-button:hover {
+            background-color: #2d2e30;
+            border: 0.0625rem solid #57585a;
+        }
+
+        #header > .search-form {
+            top: 50%;
+            left: 50%;
+            width: 25rem;
+            border: 0.0625rem solid #313234;
+            border-radius: 999rem;
+            box-sizing: border-box;
+            padding: 0 0.375rem;
+            position: absolute;
+            transform: translate(-50%, -50%);
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #header > .search-form:focus-within {
+            border: 0.0625rem solid #0b8a5e;
+        }
+
+        #header > .search-form > .label {
+            display: none;
+        }
+
+        #header > .search-form > .input {
+            background-color: transparent;
+            border: none;
+            color: inherit;
+            flex-grow: 1;
+            font-family: inherit;
+            font-size: 1.0625rem;
+            outline: none;
+            padding: 0.5rem 0 0.5rem 0.6rem;
+        }
+
+        #header > .search-form > .submit {
+            top: 0.0625rem;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #header > .search-form > .recent {
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #222426;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 1rem 0.0625rem #00000030;
+            position: absolute;
+            transform: translateY(0.3rem);
+
+            align-items: stretch;
+            display: none;
+            flex-direction: column;
+        }
+
+        #header > .search-form:focus-within > .recent {
+            display: flex;
+        }
+
+        #header > .search-form > .recent > .content {
+            color: #9da5b6;
+            padding: 3.75rem 1rem;
+            text-align: center;
+        }
+        
+        #header > .search-form > .recent > .link-container {
+            border-top: 0.0625rem solid #2f3133;
+            font-size: 0.85rem;
+            padding: 0.35rem 1rem;
+
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        #header > .search-form > .recent > .link-container > .link {
+            color: #9da5b6;
+            text-decoration: none;
+        }
+
+        #header > .search-form > .recent > .link-container > .link:hover {
+            text-decoration: underline;
+        }
+
+        #aside {
+            top: 0;
+            left: 0;
+            width: var(--aside-width);
+            height: 100%;
+            margin-top: var(--header-height);
+            position: fixed;
+            z-index: 1;
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #aside > .recommend {
+            list-style-type: none;
+            margin-block: 0;
+            margin-inline: 0;
+            padding-inline: 0;
+
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.475rem;
+        }
+
+        #aside > .recommend > .title {
+            color: #9da5b6;
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        #aside > .recommend > .item {
+            height: 2.15rem;
+
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        #aside > .recommend > .item > .link {
+            width: 1.875rem;
+            aspect-ratio: 1/1;
+            border: 0.0625rem solid #01ffa3;
+            border-radius: 50%;
+            overflow: hidden;
+
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        #aside > .recommend > .item > .link:hover {
+            border: 0.2rem solid #01ffa3;
+        }
+
+        #aside > .recommend > .item > .link > .image {
+            width: calc(100% - 0.25rem);
+            aspect-ratio: 1/1;
+            border: 0.125rem solid #151618;
+            border-radius: 50%;
+        }
+
+        #aside > .split {
+            height: 0.0625rem;
+            background-color: #333436;
+            margin: 0.925rem 1.375rem;
+        }
+
+        #aside > .category {
+            list-style-type: none;
+            margin-block: 0;
+            margin-inline: 0;
+            margin-top: -0.5rem;
+            padding-inline: 0;
+            padding: 0 0.625rem;
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        #aside > .category > .item > .link {
+            border-radius: 0.375rem;
+            color: #9da5b6;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            text-decoration: none;
+
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+
+        #aside > .category > .item > .link:hover {
+            background-color: #2d2e30;
+            color: #ffffff;
+        }
+
+        #aside > .category > .item > .link:hover > .icon {
+            filter: brightness(200%);
+        }
+
+        #main {
+            margin-top: var(--header-height);
+            margin-left: var(--aside-width);
+            padding: 0 1.75rem;
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main > .event {
+            background-color: #1f2123;
+            border-radius: 0.5rem;
+            list-style-type: none;
+            margin-block: 0;
+            margin-inline: 0;
+            padding-inline: 0;
+            overflow: hidden;
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #main > .event > .item > .link {
+            width: 21rem;
+            border-right: 0.0625rem solid #36383a;
+            color: inherit;
+            text-decoration: none;
+
+            align-items: stretch;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #main > .event > .item > .link:hover {
+            background-color: #36383a;
+        }
+
+        #main > .event > .item > .link > .text-container {
+            flex-grow: 1;
+            padding: 0.875rem 0 0.875rem 1.2rem;
+
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.125rem;
+        }
+
+        #main > .event > .item > .link > .text-container > .title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-block: 0;
+            margin-inline: 0;
+        }
+
+        #main > .event > .item > .link > .text-container > .subtitle {
+            color: #9da5b6;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-block: 0;
+            margin-inline: 0;
+        }
+
+        #main > .event > .item > .link > .text-container > .text {
+            color: #01ffa3;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.33rem;
+        }
+
+        #main > .event > .item > .link > .image-wrapper > .image {
+            width: 8.3125rem;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="aside-toggle">
+            <svg class="icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="11" y="13" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+                <rect x="11" y="19" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+                <rect x="11" y="25" width="18" height="2" rx="1" fill="#DFE2EA"></rect>
+            </svg>
+            <div class="tip">메뉴 확장</div>
+        </div>
+        <a class="logo-wrapper" href="#">
+            <svg class="logo" width="96" height="26" viewBox="0 0 96 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M81.3805 6.22122L81.3395 6.48392C81.2919 6.78767 81.2869 7.05694 81.3231 7.29008C81.3592 7.52323 81.438 7.71369 81.5579 7.8631C81.6777 8.01908 81.8419 8.13401 82.0504 8.20789C82.2589 8.28178 82.5069 8.31954 82.7942 8.31954C83.1242 8.31954 83.4066 8.27685 83.643 8.19312C83.8795 8.10938 84.0978 7.99609 84.2982 7.85325L84.5395 8.34909C84.285 8.53134 83.9731 8.67911 83.6053 8.79404C83.2375 8.90898 82.8779 8.96644 82.5282 8.96644C82.0882 8.96644 81.7204 8.8942 81.4249 8.74807C81.1277 8.60194 80.8978 8.39835 80.732 8.13401C80.5596 7.87788 80.4479 7.57084 80.4003 7.21784C80.3527 6.86319 80.3609 6.47735 80.4266 6.05703C80.4923 5.63178 80.6121 5.23937 80.7845 4.88144C80.9569 4.52351 81.1704 4.2132 81.4232 3.9505C81.6695 3.69437 81.947 3.49406 82.2573 3.35285C82.5676 3.21165 82.8976 3.14105 83.2473 3.14105C83.6118 3.14105 83.9238 3.20509 84.1849 3.33315C84.4459 3.46122 84.6544 3.64675 84.8088 3.89139C84.9549 4.14096 85.0468 4.45456 85.0846 4.8289C85.1224 5.20325 85.1027 5.63835 85.0255 6.13091L85.0107 6.22286H81.3756L81.3805 6.22122ZM84.2013 5.62357C84.2456 5.33953 84.2555 5.08504 84.2325 4.85846C84.2095 4.63188 84.1586 4.43814 84.0814 4.27559C83.9895 4.11961 83.8663 3.99811 83.7153 3.91109C83.5642 3.82407 83.3754 3.77974 83.1488 3.77974C82.9288 3.77974 82.7285 3.82079 82.5479 3.90124C82.3673 3.98169 82.2064 4.09663 82.0668 4.24604C81.9174 4.40858 81.7959 4.60233 81.6974 4.8289C81.5989 5.05548 81.5283 5.31983 81.4807 5.62357H84.198H84.2013Z" fill="#FF5454" stroke="#FF5454" stroke-width="0.2"></path>
+                <path d="M87.7424 3.30685C87.9477 3.30685 88.1546 3.30685 88.3614 3.30193C88.5683 3.29864 88.8129 3.28715 89.0986 3.26745L88.8261 3.96689C88.6011 3.95375 88.3893 3.94554 88.1923 3.94062C87.9936 3.93733 87.8081 3.93569 87.6374 3.93569L87.1103 7.31961C87.0676 7.59052 87.0643 7.79903 87.1005 7.94844C87.1349 8.09786 87.2072 8.20129 87.3139 8.26204C87.4124 8.32936 87.5487 8.36056 87.7211 8.35399C87.8935 8.34742 88.0971 8.31623 88.3319 8.26369L88.3384 8.82028C88.2958 8.83342 88.2301 8.84984 88.1447 8.87118C88.0593 8.89088 87.9707 8.91223 87.8787 8.93193C87.7786 8.95163 87.6866 8.96805 87.5996 8.9779C87.5126 8.98775 87.442 8.99268 87.3862 8.99268C87.153 8.99268 86.9543 8.96477 86.7918 8.91059C86.6292 8.8564 86.5045 8.77267 86.4191 8.65774C86.3173 8.55594 86.2533 8.41966 86.2253 8.24727C86.1974 8.07487 86.2007 7.87456 86.2368 7.6447L86.8131 3.93733H86.1432L86.2418 3.30849H86.9116C86.9642 3.01788 87.0036 2.74369 87.0299 2.48263C87.0561 2.22321 87.0791 1.99171 87.0972 1.78811L88.0872 1.64691C88.0019 1.93096 87.9362 2.20187 87.8886 2.46293C87.841 2.72234 87.7933 3.00475 87.7474 3.30849L87.7424 3.30685Z" fill="#FF5454" stroke="#FF5454" stroke-width="0.2"></path>
+                <path d="M93.9245 8.4458L93.3005 9.01225C93.1659 8.9515 93.0411 8.85627 92.9278 8.7282C92.8146 8.60014 92.744 8.44087 92.7193 8.25206C92.5913 8.37356 92.4484 8.48028 92.2941 8.57058C92.1397 8.66253 91.9854 8.73806 91.8311 8.7988C91.662 8.86612 91.4994 8.91702 91.3385 8.94986C91.1792 8.98434 91.0265 9.00076 90.8821 9.00076C90.6144 9.00076 90.3747 8.96792 90.1613 8.90388C89.9478 8.83985 89.7771 8.73641 89.649 8.59521C89.5111 8.46714 89.4175 8.30132 89.3666 8.09936C89.3157 7.89741 89.3108 7.66427 89.3518 7.39992C89.4011 7.08304 89.5012 6.80228 89.6523 6.55928C89.8033 6.31628 90.0086 6.11105 90.268 5.94193C90.5192 5.77939 90.8246 5.65461 91.1809 5.56759C91.5372 5.48057 91.9526 5.43624 92.4271 5.43624H93.0658L93.1249 5.05204C93.1593 4.82874 93.1659 4.64321 93.1446 4.49544C93.1232 4.34767 93.0789 4.22124 93.0116 4.12109C92.9361 4.03407 92.8343 3.96839 92.7062 3.92899C92.5781 3.88794 92.4221 3.86824 92.2366 3.86824C92.0724 3.86824 91.9132 3.88138 91.7621 3.90929C91.6111 3.93556 91.4633 3.97004 91.3188 4.01108C91.1661 4.06527 91.0167 4.12766 90.8722 4.19826C90.7277 4.26886 90.575 4.35259 90.4158 4.44618L90.1416 3.82719C90.3222 3.7254 90.5126 3.63181 90.7162 3.54315C90.9182 3.45613 91.1267 3.3806 91.3434 3.31985C91.5454 3.2591 91.7473 3.21313 91.9509 3.18358C92.1545 3.15402 92.3483 3.1376 92.5338 3.1376C92.849 3.1376 93.1117 3.17701 93.3186 3.25418C93.5255 3.33135 93.688 3.45613 93.8062 3.6236C93.9163 3.79928 93.9786 4.02422 93.9951 4.29677C94.0115 4.57096 93.9885 4.90262 93.9277 5.29503L93.6421 7.06826C93.6322 7.13558 93.6191 7.2029 93.6059 7.27021C93.5912 7.33753 93.5797 7.40485 93.5698 7.47217C93.5665 7.53292 93.5649 7.59531 93.5616 7.65934C93.5583 7.72337 93.5616 7.78248 93.5747 7.83666C93.601 8.01891 93.6338 8.14205 93.6716 8.20609C93.7094 8.27012 93.7931 8.34893 93.9228 8.44416L93.9245 8.4458ZM92.9426 6.08478C92.8737 6.08478 92.785 6.07985 92.6766 6.07C92.5683 6.06015 92.501 6.05522 92.473 6.05522C92.143 6.05522 91.8524 6.07821 91.5979 6.12582C91.3434 6.17344 91.13 6.24732 90.9559 6.34912C90.7753 6.45092 90.6341 6.58063 90.5356 6.73825C90.4355 6.89751 90.3682 7.08468 90.3353 7.29977C90.309 7.46888 90.3074 7.61665 90.332 7.74472C90.3567 7.87279 90.4076 7.97787 90.4847 8.05832C90.5537 8.14698 90.6506 8.21265 90.7786 8.25534C90.905 8.29967 91.0577 8.32102 91.2367 8.32102C91.3746 8.32102 91.5076 8.30624 91.6357 8.27505C91.7637 8.24549 91.8918 8.19952 92.0182 8.13877C92.1381 8.07802 92.2547 8.00085 92.368 7.90562C92.4829 7.81039 92.5978 7.6971 92.7144 7.56083L92.9443 6.08149L92.9426 6.08478Z" fill="#FF5454" stroke="#FF5454" stroke-width="0.2"></path>
+                <path d="M75.8816 3.22475C76.0753 2.47933 76.3545 1.92274 76.7206 1.55331C77.0867 1.18389 77.5481 1 78.108 1C78.6235 1 79.0373 1.15434 79.3492 1.46301C79.6612 1.77168 79.8172 2.18051 79.8172 2.68785C79.8172 3.13937 79.7055 3.51372 79.4839 3.8109C79.2622 4.10808 78.8928 4.35436 78.3773 4.5481C78.4922 4.61214 78.5858 4.6696 78.6564 4.7205C78.7286 4.7714 78.7959 4.82065 78.86 4.87155C79.0324 5.02261 79.1604 5.22456 79.2474 5.47905C79.3328 5.73354 79.3772 6.00117 79.3772 6.28028C79.3772 6.65956 79.3148 7.01585 79.1883 7.34422C79.0636 7.67424 78.8928 7.95993 78.6777 8.20457C78.4626 8.44757 78.2081 8.63967 77.9142 8.77923C77.6203 8.91879 77.3084 8.98939 76.9784 8.98939C76.6484 8.98939 76.3725 8.92535 76.1295 8.79564C75.8865 8.66594 75.6452 8.441 75.4087 8.11919L74.8603 10.183H74L75.8816 3.22475ZM76.957 4.11629H77.42C77.6778 4.11629 77.8929 4.08509 78.0653 4.02434C78.2377 3.96359 78.3986 3.86508 78.5496 3.7288C78.7007 3.58596 78.8189 3.42013 78.9043 3.2346C78.9897 3.04907 79.034 2.86846 79.034 2.6977C79.034 2.43993 78.9453 2.22648 78.7713 2.05737C78.5956 1.88826 78.3723 1.80452 78.0998 1.80452C77.778 1.80452 77.4988 1.93587 77.2673 2.19693C77.0342 2.45799 76.8388 2.86518 76.6812 3.41685L75.6058 7.36228C75.7782 7.68409 75.9653 7.91396 76.1706 8.05023C76.3742 8.18651 76.6172 8.25382 76.8963 8.25382C77.1327 8.25382 77.3511 8.20621 77.5514 8.10934C77.7517 8.01247 77.9274 7.87455 78.0784 7.69559C78.2213 7.51662 78.3362 7.30482 78.4232 7.06182C78.5086 6.81882 78.5529 6.54955 78.5529 6.25566C78.5529 5.84026 78.4429 5.50532 78.2246 5.25083C78.0062 4.99634 77.7254 4.86991 77.3806 4.86991H76.7994L76.9603 4.11793L76.957 4.11629Z" fill="#FF5454" stroke="#FF5454" stroke-width="0.2"></path>
+                <path d="M20.8469 6.15599L18.4029 19.844H23.3025L25.7427 6.15599H20.8469Z" fill="white"></path>
+                <path d="M27.4327 6.15599L26.7791 9.81581H32.75L24.9886 19.844H30.5573L34.7841 14.381L33.8096 19.844H38.7054L39.9274 13.0019H35.8515L41.1495 6.15599H27.4327Z" fill="white"></path>
+                <path d="M19.157 6.15599H13.5921L16.4229 2.5H10.8581L5.56005 9.34209H11.1288L3 19.844H8.5687L12.7955 14.381L11.821 19.844H16.7168L17.9388 13.0019H13.8628L19.157 6.15599Z" fill="white"></path>
+                <path d="M42.8394 6.15599L40.3954 19.844H45.2912L47.7352 6.15599H42.8394Z" fill="white"></path>
+                <path d="M49.4213 6.15599L48.7716 9.81581H54.7077L46.9811 19.844H52.546L56.7225 14.423L55.7557 19.844H60.6554L61.8774 13.0019H57.8208L63.0955 6.15599H49.4213Z" fill="white"></path>
+                <path d="M67.8328 16.1842L69.6233 6.15599H64.7275L62.2834 19.844H65.4506L64.7971 23.5H69.6968L71 16.1842H67.8328Z" fill="white"></path>
+            </svg>
+        </a>
+        <div class="spring"></div>
+        <a class="login-button" href="#">로그인</a>
+        <form class="search-form">
+            <label class="label" for="searchKeywordInput">스트리머, 게임 영상 검색</label>
+            <input required class="input" id="searchKeywordInput" maxlength="50" minlength="1" name="keyword" placeholder="스트리머, 게임 영상 검색" spellcheck="false" type="search">
+            <button class="submit" type="submit">
+                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.8999 14.5L19.0862 17.7187" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <circle cx="11.4302" cy="10.4819" r="5.35" stroke="white" stroke-width="1.8"></circle>
+                </svg>
+            </button>
+            <div class="recent">
+                <div class="content">최근 검색이 없습니다.</div>
+                <div class="link-container">
+                    <a class="link" href="#">자동저장 끄기</a>
+                    <a class="link" href="#">닫기</a>
+                </div>
+            </div>
+        </form>
+    </header>
+    <aside id="aside">
+        <ul class="recommend">
+            <li class="title">추천</li>
+            <li class="item">
+                <a class="link" href="#">
+                    <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMTlfMjMx/MDAxNzAyOTYxNDAyNDI3.vJJH93xg7qAawQ8IuGF29oJfGElcwpguPrHfAZ_DljEg.HHw3rV7GHlo5Gel3d1LmHGYYWAUuZsCXqoFTzD-LbLAg.JPEG/channels4_profile.jpg?type=f120_120_na">
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMTlfMTQg/MDAxNzAyOTk0MDY3MDk4.AYCG30jnoir18ozbTkq9465vMk6hTGAJphCJrz9Qo2sg.0TTspJJqQV5hJEutSeNt6vdX3Mc0XcFzpYFY8NNWkp4g.PNG/KakaoTalk_20231219_183937840.png?type=f120_120_na">
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMTlfMjg0/MDAxNzAyOTU0NjA1Njk5.2EsEY165-5TvW6Soa2YgQzFpK38pMUhEMbgYuOUPZLYg.s7_FEazp9o9tV2xZtvmMSHTw_5CkbD_PwiOzHXNvHbcg.PNG/KakaoTalk_20230425_191047184.png?type=f120_120_na">
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMThfNDcg/MDAxNzAyODg1MDgwNzY3.P5DJlXA88mUBbm4JrDJtlYYRgDx9Bz9XD_BJYwzDB44g.kw21eBBQ1vGkI6DMhytMky0p3K7XgZhDIugibfFNaKIg.PNG/%EC%B9%98%EC%A7%80%EC%A7%81.png?type=f120_120_na">
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMThfMTgw/MDAxNzAyODk0MjI0MzYx.xT6nkMtdLX5v-bIpnbXHf-UtQWrqKohhPChWZvWxB-Mg.hNpk5upfXEydNDSZ79NnIXFyHPLCHUd0p_DbHJP4YHcg.PNG/%ED%99%94%EB%A3%A1_%EB%8F%84%ED%8A%B8_%EC%BA%90%EB%A6%AD%ED%84%B0.png?type=f120_120_na">
+                </a>
+            </li>
+        </ul>
+        <div class="split"></div>
+        <ul class="category">
+            <li class="item">
+                <a class="link" href="#">
+                    <svg class="icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4.3579" y="3.90191" width="5.33077" height="5.33077" rx="0.973077" stroke="#9DA5B6" stroke-width="1.43846"></rect><rect x="4.104" y="12.1424" width="5.83846" height="5.83846" rx="2.91923" stroke="#9DA5B6" stroke-width="1.43846"></rect>
+                        <path d="M18.1221 9.18107H12.678C12.5817 9.18107 12.5205 9.07803 12.5666 8.99345L15.2886 3.9938C15.3367 3.90548 15.4635 3.90549 15.5115 3.99379L18.2336 8.99345C18.2796 9.07803 18.2184 9.18107 18.1221 9.18107Z" stroke="#9DA5B6" stroke-width="1.43846"></path>
+                        <path d="M13.0308 12.5234L18.1073 17.6003" stroke="#9DA5B6" stroke-width="1.43846" stroke-linecap="round"></path>
+                        <path d="M18.1074 12.5233L13.0309 17.6002" stroke="#9DA5B6" stroke-width="1.43846" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="text">게임</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <svg class="icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_780_4824)">
+                            <path d="M1.72 8.50012C1.72 7.4005 2.04244 6.76553 2.53364 6.37774C3.06012 5.9621 3.91603 5.72012 5.2 5.72012H6.28V11.2801H5.2C4.12158 11.2801 3.25429 11.1501 2.66533 10.7701C2.1453 10.4346 1.72 9.82088 1.72 8.50012Z" stroke="#9DA5B6" stroke-width="1.44"></path>
+                        </g>
+                        <g clip-path="url(#clip1_780_4824)">
+                            <path d="M20.28 8.49988C20.28 9.5995 19.9576 10.2345 19.4664 10.6223C18.9399 11.0379 18.084 11.2799 16.8 11.2799L15.72 11.2799L15.72 5.71988L16.8 5.71988C17.8784 5.71988 18.7457 5.84992 19.3347 6.22989C19.8547 6.56539 20.28 7.17912 20.28 8.49988Z" stroke="#9DA5B6" stroke-width="1.44"></path>
+                        </g>
+                        <path d="M8.5 18.8571H13.5" stroke="#9DA5B6" stroke-width="1.44" stroke-linecap="round"></path>
+                        <path d="M15.7934 4.28006H6.20698C5.49789 4.28006 4.92307 4.85488 4.92307 5.56397V10.3572C4.92307 13.7135 7.6439 16.4343 11.0002 16.4343C14.3565 16.4343 17.0774 13.7135 17.0774 10.3572V5.56397C17.0774 4.85489 16.5025 4.28006 15.7934 4.28006Z" stroke="#9DA5B6" stroke-width="1.44"></path>
+                        <defs>
+                            <clipPath id="clip0_780_4824">
+                                <rect width="4" height="7" fill="white" transform="translate(1 5.00012)"></rect>
+                            </clipPath>
+                            <clipPath id="clip1_780_4824">
+                                <rect width="4" height="7" fill="white" transform="translate(17 5)"></rect>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <span class="text">e스포츠</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <svg class="icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11.0002" cy="11" r="7.61538" stroke="#9DA5B6" stroke-width="1.43846"></circle>
+                        <path d="M7.52614 10.1783L8.56057 12.8383C8.58586 12.9033 8.6485 12.9462 8.71829 12.9462H13.2816C13.3514 12.9462 13.4141 12.9033 13.4394 12.8383L14.4738 10.1783C14.5057 10.0963 14.4067 10.0261 14.3399 10.0834L12.798 11.405L11.071 8.74035C11.0376 8.68889 10.9623 8.68889 10.929 8.74035L9.20189 11.405L7.66007 10.0834C7.59323 10.0261 7.49423 10.0963 7.52614 10.1783Z" fill="#9DA5B6" stroke="#9DA5B6" stroke-width="0.846154" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="text">오리지널</span>
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <svg class="icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4.10351" y="4.10387" width="13.7923" height="9.56154" rx="1.81923" stroke="#9DA5B6" stroke-width="1.43846" stroke-linejoin="round"></rect>
+                        <path d="M7.61523 16.923H14.3845" stroke="#9DA5B6" stroke-width="1.43846" stroke-linecap="round"></path>
+                    </svg>
+                    <span class="text">PC 게임</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <main id="main">
+        <ul class="event">
+            <li class="item">
+                <a class="link" href="#">
+                    <div class="text-container">
+                        <h2 class="title">치지직 베타 테스트 시작!</h2>
+                        <h3 class="subtitle">치지직이 궁금해?</h3>
+                        <span class="text">안내 공지 확인하기</span>
+                    </div>
+                    <div class="image-wrapper">
+                        <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMThfMTAy/MDAxNzAyODkwNDE5MjMy.IC9v2gOYWotXry98VFC-ORce7HiCBwIXwlizBt2-R6wg.bzNPX2AXzOVhmcvYdYvHvTfgUNIpGl7XT2o3_pexyxIg.PNG/%EB%B2%A0%ED%83%80%EC%95%88%EB%82%B4_%ED%99%88%EC%83%81%EB%8B%A8%EC%9D%B4%EB%AF%B8%EC%A7%80.png">
+                    </div>
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <div class="text-container">
+                        <h2 class="title">2023 자낳대 시즌2</h2>
+                        <h3 class="subtitle">팀원 경매 및 대진 선택</h3>
+                        <span class="text">12/20 18:00 | ENCHANT 채널</span>
+                    </div>
+                    <div class="image-wrapper">
+                        <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMThfMTM4/MDAxNzAyODk3NzQ3NjAw.sxTN0dKGG8YFXYddaUzFpxWBzVKeVfnlW4OuYnYTWSQg.muBl8iCPv2k3slQnIOkNHXH30ztj_8v3Re06xwZNFJEg.PNG/CZZ_%EC%83%81%EB%8B%A8%EB%85%B8%EC%B6%9C_266x180.png">
+                    </div>
+                </a>
+            </li>
+            <li class="item">
+                <a class="link" href="#">
+                    <div class="text-container">
+                        <h2 class="title">V4를 향한 여정!</h2>
+                        <h3 class="subtitle">2019-2023 T1 전경기 다시보기</h3>
+                        <span class="text">지금 방송중!</span>
+                    </div>
+                    <div class="image-wrapper">
+                        <img alt="" class="image" src="https://nng-phinf.pstatic.net/MjAyMzEyMThfMjA0/MDAxNzAyODk5NDQ1MDcw.9pt4jCLWMqfrhnK3nrajohlzlfQvp-iBvz_Thu--Xs0g.dRt8Z3KHZvl6wFzHu3ACZ4sfOuuxZuG_uJqmS9GBOOMg.PNG/%ED%99%88_%EC%83%81%EB%8B%A8_%EC%9D%B4%EB%AF%B8%EC%A7%80.png">
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>
